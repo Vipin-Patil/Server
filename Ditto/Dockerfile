@@ -1,4 +1,11 @@
 FROM openjdk:17-jdk-alpine
-EXPOSE 8080
+WORKDIR /app
+COPY pom.xml .
+RUN mvn dependency:go-offline
+COPY src ./src
+RUN mvn clean install
+FROM openjdk:17-jdk-alpine
+WORKDIR /app
 COPY target/Ditto-0.0.1-SNAPSHOT.jar Ditto-0.0.1-SNAPSHOT.jar
+EXPOSE 8080
 ENTRYPOINT ["java","-jar","/Ditto-0.0.1-SNAPSHOT.jar"]
