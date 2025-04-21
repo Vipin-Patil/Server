@@ -19,10 +19,6 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
-	public AuthController(AuthService authService) {
-		this.authService = authService;
-	}
-
 	@PostMapping("/signup")
 	public ResponseEntity<?> signup(@RequestBody SignupRequest request) {
 		authService.signup(request);
